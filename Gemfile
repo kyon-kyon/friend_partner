@@ -70,3 +70,7 @@ gem 'will_paginate',           '3.1.6'
 gem 'bootstrap-will_paginate', '1.0.0'
 gem "haml-rails", "~> 2.0"
 
+gem 'dotenv-rails'
+group :production do
+  gem 'mysql2'
+end
