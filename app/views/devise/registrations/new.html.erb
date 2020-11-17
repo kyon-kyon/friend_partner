@@ -1,0 +1,285 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-2 col-md-offset-2", style="background-color: #EEEEEE;">
+      <h4 class="text-center">新規会員登録</h4>
+    </div>
+  </div>
+	<br>
+	<br>
+	<div class="row">
+    <%#= render "customers/shared/error_messages", resource: resource %>
+			<div class="col-md-12 col-md-offset-1">
+        <%= form_with model: @user, url: user_registration_path, local: true do |f| %>
+					<table class="table">
+						<div class="form-group">
+							<tr>
+								<th class="table-noborder", width="200" >名前</th>
+								<td class="table-noborder", width="55">(姓)</td>
+								<td class="table-noborder", width="200">
+									<%= f.text_field :last_name, autofocus: true, autocomplete: "last_name", class:"center" %>
+								</td>
+									<td class="table-noborder", width="54">(名) </td>
+								<td class="table-noborder"><%= f.text_field :first_name, autofocus: true, autocomplete: "first_name", class:"center" %></td>
+							</tr>
+						</div>
+						<div class="form-group">
+							<tr class="table-noborder">
+								<th class="table-noborder">フリガナ</th>
+								<td class="table-noborder">(セイ)</td>
+								<td class="table-noborder"><%= f.text_field :kana_last_name, autofocus: true, autocomplete: "kana_last_name", class:"center" %></td>
+								<td class="table-noborder">(メイ) </td>
+								<td class="table-noborder"><%= f.text_field :kana_first_name, autofocus: true, autocomplete: "kana_first_name", class:"center" %></td>
+							</tr>
+						</div>
+						<div class="form-group">
+							<tr>
+								<th class="table-noborder">メールアドレス</th>
+								<td class="table-noborder"></td>
+								<td class="table-noborder"><%= f.email_field :email, autocomplete: "email", class:"center" %></td>
+								<td class="table-noborder"></td>
+							</tr>
+						</div>
+						<div class="form-group">
+							<tr>
+								<th class="table-noborder">
+									<% if @minimum_password_length %>
+          				<em>パスワード(<%= @minimum_password_length %>文字以上)</em>
+                	<% end %>
+              	</th>
+                <td class="table-noborder"></td>
+								<td class="table-noborder">
+								<%= f.password_field :password, autocomplete: "new-password" %>
+								</td>
+								<td class="table-noborder"></td>
+							</tr>
+						</div>
+						<div class="form-group">
+								<tr>
+									<th class="table-noborder">パスワード(確認用)</th>
+									<td class="table-noborder"></td>
+									<td class="table-noborder"><%= f.password_field :password_confirmation, autocomplete: "new-password" %></td>
+
+								</tr>
+						</div>
+						<div class="form-group">
+							<tr>
+								<th class="table-noborder">顔写真</th>
+								<td class="table-noborder"></td>
+								<td class="table-noborder"><%= f.attachment_field :profile_image, autofocus: true, autocomplete: "profile_image", class:"center" %></td>
+								<td class="table-noborder"></td>
+							</tr>
+						</div>
+						<div class="form-group">
+							<tr>
+								<th class="table-noborder">自己紹介</th>
+								<td class="table-noborder"></td>
+								<td class="table-noborder"><%= f.text_area :introduction, autofocus: true, autocomplete: "introduction", :size=>"56", class:"center" %></td>
+								<td class="table-noborder"></td>
+							</tr>
+						</div>
+						<div class="form-group">
+							<tr>
+								<th class="table-noborder">なんのためにこのアプリを使っているか、どんな人を求めているか</th>
+								<td class="table-noborder"></td>
+								<td class="table-noborder"><%= f.text_area :for_what_application, autofocus: true, autocomplete: "for_what_application", :size=>"56", class:"center" %></td>
+								<td class="table-noborder"></td>
+							</tr>
+						</div>
+						<div class="form-group">
+							<tr>
+								<th class="table-noborder">会話やメッセージを交わしても良いと思える最低レベルについて</th>
+								<td class="table-noborder"></td>
+								<td class="table-noborder"><%= f.text_area :message_level, autofocus: true, autocomplete: "message_level", :size=>"56", class:"center" %></td>
+								<td class="table-noborder"></td>
+							</tr>
+						</div>
+						<div class="form-group">
+							<tr>
+								<th class="table-noborder">相手にしたくない人の特徴</th>
+								<td class="table-noborder"></td>
+								<td class="table-noborder"><%= f.text_area :ignore_character, autofocus: true, autocomplete: "ignore_character", :size=>"56", class:"center" %></td>
+								<td class="table-noborder"></td>
+							</tr>
+						</div>
+						<div class="form-group">
+							<tr>
+								<th class="table-noborder">現在の職業</th>
+								<td class="table-noborder"></td>
+								<td class="table-noborder"><%= f.text_field :occupation, autofocus: true, autocomplete: "occupation", :size=>"56", class:"center" %></td>
+								<td class="table-noborder"></td>
+							</tr>
+						</div>
+						<div class="form-group">
+							<tr>
+								<th class="table-noborder">働くことに関して考えていること</th>
+								<td class="table-noborder"></td>
+								<td class="table-noborder"><%= f.text_area :think_to_job, autofocus: true, autocomplete: "think_to_job", :size=>"56", class:"center" %></td>
+								<td class="table-noborder"></td>
+							</tr>
+						</div>
+						<div class="form-group">
+							<tr>
+								<th class="table-noborder">可能であるなら労働は何時間行いたいか？</th>
+								<td class="table-noborder"></td>
+								<td class="table-noborder"><%= f.text_area :want_job_time, autofocus: true, autocomplete: "want_job_time", :size=>"56", class:"center" %></td>
+								<td class="table-noborder"></td>
+							</tr>
+						</div>
+						<div class="form-group">
+							<tr>
+								<th class="table-noborder">仕事において、人についての教育や投資についてどう考えていること</th>
+								<td class="table-noborder"></td>
+								<td class="table-noborder"><%= f.text_area :think_job_relationship, autofocus: true, autocomplete: "think_job_relationship", :size=>"56", class:"center" %></td>
+								<td class="table-noborder"></td>
+							</tr>
+						</div>
+						<div class="form-group">
+							<tr>
+								<th class="table-noborder">自分が提供できるもの（仕事において）</th>
+								<td class="table-noborder"></td>
+								<td class="table-noborder"><%= f.text_area :can_offer_job, autofocus: true, autocomplete: "can_offer_job", :size=>"56", class:"center" %></td>
+								<td class="table-noborder"></td>
+							</tr>
+						</div>
+						<div class="form-group">
+							<tr>
+								<th class="table-noborder">目標年収</th>
+								<td class="table-noborder"></td>
+								<td class="table-noborder"><%= f.text_field :target_income, autofocus: true, autocomplete: "target_income", :size=>"56", class:"center" %></td>
+								<td class="table-noborder"></td>
+							</tr>
+						</div>
+						<div class="form-group">
+							<tr>
+								<th class="table-noborder">学びたいこと</th>
+								<td class="table-noborder"></td>
+								<td class="table-noborder"><%= f.text_area :what_want_learn, autofocus: true, autocomplete: "what_want_learn", :size=>"56", class:"center" %></td>
+								<td class="table-noborder"></td>
+							</tr>
+						</div>
+						<div class="form-group">
+							<tr>
+								<th class="table-noborder">仕事以外に好きなもの</th>
+								<td class="table-noborder"></td>
+								<td class="table-noborder"><%= f.text_area :like_other_job, autofocus: true, autocomplete: "like_other_job", :size=>"56", class:"center" %></td>
+								<td class="table-noborder"></td>
+							</tr>
+						</div>
+						<div class="form-group">
+							<tr>
+								<th class="table-noborder">恋愛に関して何を望んでいるもの</th>
+								<td class="table-noborder"></td>
+								<td class="table-noborder"><%= f.text_area :what_desire_love, autofocus: true, autocomplete: "what_desire_love", :size=>"56", class:"center" %></td>
+								<td class="table-noborder"></td>
+							</tr>
+						</div>
+						<div class="form-group">
+							<tr>
+								<th class="table-noborder">私の人生の歩み</th>
+								<td class="table-noborder"></td>
+								<td class="table-noborder"><%= f.text_area :how_did_life, autofocus: true, autocomplete: "how_did_life", :size=>"56", class:"center" %></td>
+								<td class="table-noborder"></td>
+							</tr>
+						</div>
+						<div class="form-group">
+							<tr>
+								<th class="table-noborder">過去の失敗</th>
+								<td class="table-noborder"></td>
+								<td class="table-noborder"><%= f.text_area :past_failures, autofocus: true, autocomplete: "past_failures", :size=>"56", class:"center" %></td>
+								<td class="table-noborder"></td>
+							</tr>
+						</div>
+						<div class="form-group">
+							<tr>
+								<th class="table-noborder">自分の基となる経験値と、経験値から生まれた考え方</th>
+								<td class="table-noborder"></td>
+								<td class="table-noborder"><%= f.text_area :basic_experience, autofocus: true, autocomplete: "basic_experience", :size=>"56", class:"center" %></td>
+								<td class="table-noborder"></td>
+							</tr>
+						</div>
+						<div class="form-group">
+							<tr>
+								<th class="table-noborder">望んだ生き方、求めているもの</th>
+								<td class="table-noborder"></td>
+								<td class="table-noborder"><%= f.text_area :what_require, autofocus: true, autocomplete: "what_require", :size=>"56", class:"center" %></td>
+								<td class="table-noborder"></td>
+							</tr>
+						</div>
+						<div class="form-group">
+							<tr>
+								<th class="table-noborder">性格、好きな人のタイプ</th>
+								<td class="table-noborder"></td>
+								<td class="table-noborder"><%= f.text_area :my_personality, autofocus: true, autocomplete: "my_personality", :size=>"56", class:"center" %></td>
+								<td class="table-noborder"></td>
+							</tr>
+						</div>
+						<div class="form-group">
+							<tr>
+								<th class="table-noborder">自分が提供できるもの（仕事に関係しないことで）</th>
+								<td class="table-noborder"></td>
+								<td class="table-noborder"><%= f.text_area :basic_experience, autofocus: true, autocomplete: "basic_experience", :size=>"56", class:"center" %></td>
+								<td class="table-noborder"></td>
+							</tr>
+						</div>
+						<div class="form-group">
+							<tr>
+								<th class="table-noborder">心を動かされること</th>
+								<td class="table-noborder"></td>
+								<td class="table-noborder"><%= f.text_area :interested_by_given, autofocus: true, autocomplete: "interested_by_given", :size=>"56", class:"center" %></td>
+								<td class="table-noborder"></td>
+							</tr>
+						</div>
+
+						<div class="form-group">
+							<tr>
+								<th class="table-noborder"></th>
+								<td class="table-noborder"></td>
+								<td class="table-noborder" colspan="3"><%= f.submit "新規登録", class:"btn btn-success col-md-3 col-md-offset-1 sign_up" %></td>
+							</tr>
+						</div>
+					</table>
+      </div>
+    </div>
+  			<% end %>
+  <div class="row">
+    <div class="col-md-2 col-md-offset-2", style="background-color: #EEEEEE;">
+      <h4 class="text-center">既に登録済みの方</h4>
+    </div>
+  </div>
+  </br>
+  <div class="row">
+  	<div class="col-md-3 col-md-offset-2">
+    <%#= render "customers/shared/links" %>からログインしてください
+    </div>
+  </div>
+</div>
+
+<!--<h2>Sign up</h2>-->
+
+<!--<%#= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>-->
+<!--  <%#= render "devise/shared/error_messages", resource: resource %>-->
+
+<!--  <div class="field">-->
+<!--    <%#= f.label :email %><br />-->
+<!--    <%#= f.email_field :email, autofocus: true, autocomplete: "email" %>-->
+<!--  </div>-->
+
+<!--  <div class="field">-->
+<!--    <%#= f.label :password %>-->
+<!--    <%# if @minimum_password_length %>-->
+<!--    <em>(<%#= @minimum_password_length %> characters minimum)</em>-->
+<!--    <%# end %><br />-->
+<!--    <%#= f.password_field :password, autocomplete: "new-password" %>-->
+<!--  </div>-->
+
+<!--  <div class="field">-->
+<!--    <%#= f.label :password_confirmation %><br />-->
+<!--    <%#= f.password_field :password_confirmation, autocomplete: "new-password" %>-->
+<!--  </div>-->
+
+<!--  <div class="actions">-->
+<!--    <%#= f.submit "Sign up" %>-->
+<!--  </div>-->
+<!--<%# end %>-->
+
+<!--<%#= render "devise/shared/links" %>-->

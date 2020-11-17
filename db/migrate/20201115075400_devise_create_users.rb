@@ -32,6 +32,33 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
       # t.string   :unlock_token # Only if unlock strategy is :email or :both
       # t.datetime :locked_at
 
+      t.string :last_name
+      t.string :first_name
+      t.string :kana_last_name
+      t.string :kana_first_name
+      t.text :introduction
+      t.string :profile_image_id
+      t.text :for_what_application
+      t.text :message_level
+      t.text :ignore_character
+      t.string :occupation
+      t.text :think_to_job
+      t.text :want_job_time
+      t.text :think_job_relationship
+      t.text :can_offer_job
+      t.string :target_income
+      t.text :what_want_learn
+      t.text :like_other_job
+      t.text :what_desire_love
+      t.text :how_did_life
+      t.text :past_failures
+      t.text :basic_experience
+      t.text :what_require
+      t.text :my_personality
+      t.text :can_offer_personality
+      t.text :request_relationship_spirit
+      t.text :interested_by_given
+      t.boolean :is_deleted, nill: false, default: false
 
       t.timestamps null: false
     end

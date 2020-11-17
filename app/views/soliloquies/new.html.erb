@@ -1,0 +1,84 @@
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-2 col-md-offset-2", style="background-color: #EEEEEE;">
+      <h4 class="text-center">つぶやこう</h4>
+    </div>
+  </div>
+	<br>
+	<br>
+	<div class="row">
+    <%#= render "customers/shared/error_messages", resource: resource %>
+			<div class="col-md-12 col-md-offset-1">
+        <%= form_with model: @soliloquy, url: soliloquies_path, local: true do |f| %>
+					<table class="table">
+
+						<div class="form-group">
+							<tr>
+								<th class="table-noborder">つぶやきタイトル</th>
+								<td class="table-noborder"></td>
+								<td class="table-noborder"><%= f.text_field :title, autocomplete: "title", class:"center" %></td>
+								<td class="table-noborder"></td>
+							</tr>
+						</div>
+						<div class="form-group">
+							<tr>
+								<th class="table-noborder">何に対し</th>
+								<td class="table-noborder"></td>
+								<td class="table-noborder" colspan="3"><%= f.text_field :object, autofocus: true, autocomplete: "object", :size=>"56", class:"center"  %></td>
+							</tr>
+						</div>
+
+						<div class="form-group">
+							<tr>
+								<th class="table-noborder">何をして（どういう見方をして）</th>
+								<td class="table-noborder"></td>
+								<td class="table-noborder"><%= f.text_field :what_do, autofocus: true, autocomplete: "what_do", class:"center" %></td>
+								<td class="table-noborder"></td>
+							</tr>
+						</div>
+						<div class="form-group">
+							<tr>
+								<th class="table-noborder">どう感じたか</th>
+								<td class="table-noborder"></td>
+								<td class="table-noborder"><%= f.text_field :how_feel, autofocus: true, autocomplete: "how_feel", class:"center" %></td>
+								<td class="table-noborder"></td>
+							</tr>
+						</div>
+						<div class="form-group">
+							<tr>
+								<th class="table-noborder">自分は何をしなければいけないのか？また似た分野では何ができているか？</th>
+								<td class="table-noborder"></td>
+								<td class="table-noborder"><%= f.text_field :must_and_can, autofocus: true, autocomplete: "must_do", class:"center" %></td>
+								<td class="table-noborder"></td>
+							</tr>
+						</div>
+						<div class="form-group">
+							<tr>
+								<th class="table-noborder">自分ができることに対し何を今までしてきたか</th>
+								<td class="table-noborder"></td>
+								<td class="table-noborder"><%= f.text_field :did_action, autofocus: true, autocomplete: "did_action", class:"center" %></td>
+								<td class="table-noborder"></td>
+							</tr>
+						</div>
+						<div class="form-group">
+							<tr>
+								<th class="table-noborder">このつぶやきは何が目的か？</th>
+								<td class="table-noborder"></td>
+								<td class="table-noborder"><%= f.text_field :purpose_soliloquy, autofocus: true, autocomplete: "purpose_soliloquy", class:"center" %></td>
+								<td class="table-noborder"></td>
+							</tr>
+						</div>
+						<div class="form-group">
+							<tr>
+								<th class="table-noborder"></th>
+								<td class="table-noborder"></td>
+								<td class="table-noborder" colspan="3"><%= f.submit "つぶやく", class:"btn btn-success col-md-3 col-md-offset-1 sign_up" %></td>
+							</tr>
+						</div>
+					</table>
+      </div>
+    </div>
+  			<% end %>
+
+</div>

@@ -1,0 +1,106 @@
+<div class="container">
+  <div class="row">
+		<div class="col-md-2 col-md-offset-2">
+			<h3 class="text-center", style="background-color: #EEEEEE;">マイページ</h3>
+		</div>
+	</div>
+
+	<div class="row">
+		</br>
+		<h4 class="col-md-2">自分のプロフィール</h4>
+		<span><%#=link_to "編集する", edit_customers_path, class: "btn btn-info" %></span>
+		<span><%#=link_to "パスワードを変更する", new_customer_password_path, class: "btn btn-info" %></span>
+	</div>
+
+
+
+	<div class="row">
+		<table class="table table-hover table-bordered">
+
+			</br>
+<tr>
+	<td><%= link_to "マッチング申請した人リスト", following_user_path(user) %>
+		<%= user.following.count %>
+	</td>
+</tr>
+<tr>
+	<td><%= link_to "マッチングを自分に申し込んできた人リスト", followers_user_path(user) %>
+		<%= user.followers.count %>
+	</td>
+</tr>
+
+<tr>
+	<td><%= link_to "マッチングした人", first_path %>
+	</td>
+</tr>
+<tr>
+	<td>
+		<%# こっちが正解%>
+		<%# @matchings.each do |user| %>
+
+		<%#= link_to "マッチした人とのページ",users_path %>
+		<%# end %>
+
+		<%# nameで出す %>
+		<%#= @matchings[0].name %>
+	</td>
+</tr>
+
+	<tr>
+		<td><% unless user_signed_in? && current_user.id == user.id %>
+    		<div id="follow_form">
+        		<% if current_user.following?(user) %>
+            		<%= form_with(model: current_user.active_relationships.find_by(followed_id: user.id),html: { method: :delete }, local: true) do |f| %>
+                	<%= f.submit "マッチングを解除or申請を解除する", class: "btn" %>
+            		<% end %>
+        		<% else %>
+            		<%= form_with(model: current_user.active_relationships.build, local: true) do |f| %>
+                	<div><%= hidden_field_tag :followed_id, user.id %></div>
+                	<%= f.submit "マッチングを申請する", class: "btn btn-primary" %>
+            		<% end %>
+        		<% end %>
+    		</div>
+    		<% else %>
+    		<% end %>
+		</td>
+	</tr>
+
+			<tr>
+				<td class="info", style="width: 200px">氏名</td>
+				<td>
+					<%= current.name %>
+				</td>
+			</tr>
+
+			<tr>
+				<td class="info">カナ</td>
+				<td>
+					<%= current.kana_name %>
+				</td>
+			</tr>
+
+			<tr>
+				<td class="info">なんのためにこのアプリを使っているか、どんな人を求めているか</td>
+				<td>
+					<%= current.for_what_application %>
+				</td>
+			</tr>
+
+			<tr>
+				<td class="info">メッセージを交換しても良いと思えるレベル</td>
+				<td>
+					<%= current.message_level %>
+				</td>
+			</tr>
+
+			<tr>
+				<td class="info">相手にしたくない人の特徴</td>
+				<td>
+					<%= current.ignore_character %>
+				</td>
+			</tr>
+
+		</table>
+	</div>
+
+</div>

@@ -1,0 +1,92 @@
+<div class="container">
+	<div class="row">
+
+		<h2>つぶやき詳細</h2>
+
+			<table class="table table-hover">
+				<tbody>
+					<tr>
+						<th class="table-noborder">タイトル</th>
+						<td class="table-noborder"><%= @soliloquy.title %></td>
+					</tr>
+					<tr>
+						<th class="table-noborder">何に対して</th>
+						<td class="table-noborder"><%= @soliloquy.object %></td>
+					</tr>
+					<tr>
+						<th class="table-noborder">何をして（何を見て）</th>
+						<td class="table-noborder"><%= @soliloquy.what_do %></td>
+					</tr>
+					<tr>
+						<th nowrap class="table-noborder">どう感じたか</th>
+						<td class="table-noborder"><%= @soliloquy.how_feel %></td>
+					</tr>
+	                <tr>
+						<th nowrap class="table-noborder">自分はそれに対し何をしなければいけないのか？また似た分野では何ができているか？</th>
+						<td class="table-noborder"><%= @soliloquy.must_and_can %></td>
+					</tr>
+					<tr>
+						<th nowrap class="table-noborder">自分ができていることに対して何を今までしてきたか</th>
+						<td class="table-noborder"><%= @soliloquy.did_action %></td>
+					</tr>
+					<tr>
+						<th nowrap class="table-noborder">このつぶやきは何が目的か？</th>
+						<td class="table-noborder"><%= @soliloquy.purpose_soliloquy %></td>
+					</tr>
+
+					<tr>
+						<th class="table-noborder"> </th>
+						<td align="right" class="table-noborder">
+							<%#= link_to "編集ページへ", edit_admin_product_path, class:"btn btn-info btn-md" %>
+						</td>
+					</tr>
+
+					<tr>
+						<td>
+							<li>
+							  <i class="fa fa-comment"></i>
+							  <%= link_to @soliloquy.post_comments.count %></a>
+							</li>
+
+						<div class="comment-list bt style-2" id="comments">
+						  <div class="float-wrapper">
+						    <h2 class="comment-count"><%= @soliloquy.post_comments.count %>件コメント</h2>
+						  </div>
+
+
+						  <%= form_with(model:[@post_comment], url: soliloquy_post_comments_path(@soliloquy), local: true) do |f| %>
+							  <div class="row">
+							    <div class="col-sm-12">
+							      <%= f.text_area :comment, rows:'5', class: "form-control",placeholder: "コメントをここに" %>
+							    </div>
+							  </div>
+							  <%= f.submit "送信する", class: "btn btn-lg btn-base-1 mt-20 pull-right" %>
+							<% end %>
+
+						   <% @soliloquy.post_comments.each do |post_comment| %>
+							    <li class="comment">
+							      <div class="comment-body bb">
+							        <div class="comment-avatar">
+							          <div class="avatar">
+
+							          </div>
+							        </div>
+							        <div class="comment-text">
+							          <div class="comment-author clearfix">
+							            <a href="#" class="link-author"><%= post_comment.user.name %></a>
+							            <span class="comment-meta">
+							              <span class="comment-date"><%= post_comment.created_at.strftime('%Y/%m/%d') %></span>
+							            </span>
+							          </div>
+							          <div class="comment-entry"><%= post_comment.comment %></div>
+							        </div>
+							      </div>
+							    </li>
+							<% end %>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  title: MyString
+  object: MyText
+  what_do: MyText
+  how_feel: MyText
+  must_and_can: MyText
+  did_action: MyText
+  purpose_soliloquy: MyText
+
+two:
+  user_id: 1
+  title: MyString
+  object: MyText
+  what_do: MyText
+  how_feel: MyText
+  must_and_can: MyText
+  did_action: MyText
+  purpose_soliloquy: MyText

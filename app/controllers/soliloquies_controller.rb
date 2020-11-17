@@ -1,4 +1,5 @@
 class SoliloquiesController < ApplicationController
+
     def top
     end
 
@@ -35,6 +36,6 @@ class SoliloquiesController < ApplicationController
    private
 
    def soliloquy_params
-       params.require(:soliloquy).permit(:title, :object, :what_do, :how_feel, :must_do, :did_action, :purpose_soliloquy)
+       params.require(:soliloquy).permit(:title, :object, :what_do, :how_feel, :must_and_can, :did_action, :purpose_soliloquy)
    end
 end
