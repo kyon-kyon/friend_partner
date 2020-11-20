@@ -1,4 +1,8 @@
 <%= link_to "つぶやくページへ", new_soliloquy_path %>
+
+<br>
+
+<%= link_to "会員情報編集画面へ", edit_user_path(@user) %>
 <%= render "users/profile", user:@user, current:@current %>
 
 <%= render "soliloquies/index", soliloquies:@soliloquies %>

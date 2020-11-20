@@ -43,46 +43,18 @@
 
 					<tr>
 						<td>
-							<li>
-							  <i class="fa fa-comment"></i>
-							  <%= link_to @soliloquy.post_comments.count %></a>
-							</li>
+							<div id="favorites_buttons_<%= @soliloquy.id %>">
+							<%= render "favorites/favorite", soliloquy: @soliloquy %>
+							</div>
+						</td>
+					</tr>
 
-						<div class="comment-list bt style-2" id="comments">
-						  <div class="float-wrapper">
-						    <h2 class="comment-count"><%= @soliloquy.post_comments.count %>件コメント</h2>
-						  </div>
-
-
-						  <%= form_with(model:[@post_comment], url: soliloquy_post_comments_path(@soliloquy), local: true) do |f| %>
-							  <div class="row">
-							    <div class="col-sm-12">
-							      <%= f.text_area :comment, rows:'5', class: "form-control",placeholder: "コメントをここに" %>
-							    </div>
-							  </div>
-							  <%= f.submit "送信する", class: "btn btn-lg btn-base-1 mt-20 pull-right" %>
-							<% end %>
-
-						   <% @soliloquy.post_comments.each do |post_comment| %>
-							    <li class="comment">
-							      <div class="comment-body bb">
-							        <div class="comment-avatar">
-							          <div class="avatar">
-
-							          </div>
-							        </div>
-							        <div class="comment-text">
-							          <div class="comment-author clearfix">
-							            <a href="#" class="link-author"><%= post_comment.user.name %></a>
-							            <span class="comment-meta">
-							              <span class="comment-date"><%= post_comment.created_at.strftime('%Y/%m/%d') %></span>
-							            </span>
-							          </div>
-							          <div class="comment-entry"><%= post_comment.comment %></div>
-							        </div>
-							      </div>
-							    </li>
-							<% end %>
+					<tr>
+						<td>
+							<div id="post_comment_<%= @post_comment.id %>">
+								<%= render "post_comments/post_comment", soliloquy: @soliloquy, post_comment: @post_comment %>
+								<%#= render partial: 'post_comments/post_comment', locals: { soliloquy: @soliloquy, post_comment: @post_comment} %>
+							</div>
 						</td>
 					</tr>
 				</tbody>

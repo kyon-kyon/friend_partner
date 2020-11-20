@@ -6,6 +6,7 @@ class SoliloquiesController < ApplicationController
     def about
     end
 
+
     def index
         @users = User.all
         @soliloquies = Soliloquy.all
