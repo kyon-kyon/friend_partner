@@ -13,41 +13,8 @@
 	</div>
 
 
-
-	<div class="row">
-		<table class="table table-hover table-bordered">
-
-			</br>
-<tr>
-	<td><%= link_to "マッチング申請した人リスト", following_user_path(user) %>
-		<%= user.following.count %>
-	</td>
-</tr>
-<tr>
-	<td><%= link_to "マッチングを自分に申し込んできた人リスト", followers_user_path(user) %>
-		<%= user.followers.count %>
-	</td>
-</tr>
-
-<tr>
-	<td><%= link_to "マッチングした人", first_path %>
-	</td>
-</tr>
-<tr>
-	<td>
-		<%# こっちが正解%>
-		<%# @matchings.each do |user| %>
-
-		<%#= link_to "マッチした人とのページ",users_path %>
-		<%# end %>
-
-		<%# nameで出す %>
-		<%#= @matchings[0].name %>
-	</td>
-</tr>
-
-	<tr>
-		<td><% unless user_signed_in? && current_user.id == user.id %>
+<div>
+	<% unless user_signed_in? && current_user.id == user.id %>
     		<div id="follow_form">
         		<% if current_user.following?(user) %>
             		<%= form_with(model: current_user.active_relationships.find_by(followed_id: user.id),html: { method: :delete }, local: true) do |f| %>
@@ -62,50 +29,185 @@
     		</div>
     		<% else %>
     		<% end %>
-		</td>
-	</tr>
+</div>
 
-	　　<tr>
-				<td class="info", style="width: 200px">顔写真</td>
-				<td>
-					<%= attachment_image_tag current_user, :profile_image, :fill, 100, 100 %>
-				</td>
-			</tr>
+<div>
+		<%= link_to "フォロー数", following_user_path(user) %>
+		<%= user.following.count %>
+</div>
 
-			<tr>
-				<td class="info", style="width: 200px">氏名</td>
-				<td>
-					<%= current.name %>
-				</td>
-			</tr>
+<div>
+	<%= link_to "フォロワー数", followers_user_path(user) %>
+	<%= user.followers.count %>
+</div>
 
-			<tr>
-				<td class="info">カナ</td>
-				<td>
-					<%= current.kana_name %>
-				</td>
-			</tr>
+	<div class="row">
+		<table class="table table-hover table-bordered", border="5">
 
-			<tr>
-				<td class="info">なんのためにこのアプリを使っているか、どんな人を求めているか</td>
-				<td>
-					<%= current.for_what_application %>
-				</td>
-			</tr>
 
-			<tr>
-				<td class="info">メッセージを交換しても良いと思えるレベル</td>
-				<td>
-					<%= current.message_level %>
-				</td>
-			</tr>
 
-			<tr>
-				<td class="info">相手にしたくない人の特徴</td>
-				<td>
-					<%= current.ignore_character %>
-				</td>
-			</tr>
+
+
+	<thead>
+		<tr>
+			<th width = 200px, height = 50px,>顔写真</th>
+			<th width = 50px, height = 50px>氏名</th>
+			<th style="width: 200px", style="height: 50px">カナ</th>
+			<th style="width: 200px", style="height: 50px">職業</th>
+			<th style="width: 200px", style="height: 50px">目標年収</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<tr>
+			<td><%= attachment_image_tag user, :profile_image, :fill, 50, 50, fallback: "no_image.jpg" %></td>
+			<td width = 50px, height = 50px><%= user.name %></td>
+			<td><%= user.kana_name %></td>
+			<td><%= user.occupation %></td>
+			<td><%= user.target_income %></td>
+		</tr>
+	</tbody>
+
+		<thead>
+		<tr>
+			<th colspan="5", style="width: 200px">自己紹介</th>
+		</tr>
+	</thead>
+
+		<tbody>
+		<tr>
+			<td colspan="5", style="width: 200px", class="user-edit"><%= user.introduction %></td>
+		</tr>
+	</tbody>
+
+			<thead>
+		<tr>
+			<th colspan="5", style="width: 200px">何のためにこのアプリを使っているか、どんな人を求めているか</th>
+		</tr>
+	</thead>
+
+		<tbody>
+		<tr>
+			<td colspan="5", style="width: 200px"><%= user.for_what_application %></td>
+		</tr>
+	</tbody>
+
+			<thead>
+		<tr>
+			<th colspan="5", style="width: 200px">私の人生の歩み</th>
+		</tr>
+	</thead>
+
+		<tbody>
+		<tr>
+			<td colspan="5", style="width: 200px"><%= user.how_did_life %></td>
+		</tr>
+	</tbody>
+
+	<thead>
+		<tr>
+			<th width = 200px, height = 50px>メッセージで返事を返す基準</th>
+			<th width = 200px, height = 50px>時間の投資をしたい相手</th>
+			<th style="width: 200px", style="height: 50px">望む労働時間</th>
+			<th style="width: 200px", style="height: 50px">仕事上で人材教育、投資について考えていること</th>
+			<th style="width: 200px", style="height: 50px">自分が提供できるもの（仕事において）</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<tr>
+			<td><%= user.message_level %></td>
+			<td><%= user.ignore_character %></td>
+			<td><%= user.want_job_time %></td>
+			<td><%= user.think_job_relationship %></td>
+			<td><%= user.can_offer_job %></td>
+		</tr>
+	</tbody>
+
+	<thead>
+		<tr>
+			<th colspan="5", style="width: 200px">仕事上で人材教育、投資について考えていること</th>
+		</tr>
+	</thead>
+
+		<tbody>
+		<tr>
+			<td colspan="5", style="width: 200px"><%= user.think_job_relationship %></td>
+		</tr>
+	</tbody>
+
+
+	<thead>
+		<tr>
+			<th width = 200px, height = 50px>私が学びたいこと</th>
+			<th width = 200px, height = 50px>仕事以外で興味があること、好きなこと</th>
+			<th style="width: 200px", style="height: 50px">a間</th>
+			<th style="width: 200px", style="height: 50px">恋愛に関して望んでいるもの</th>
+			<th style="width: 200px", style="height: 50px">私が望んでいるもの</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<tr>
+			<td><%= user.what_want_learn %></td>
+			<td><%= user.like_other_job %></td>
+			<td><%= user.think_job_relationship %></td>
+			<td><%= user.what_desire_love %></td>
+			<td><%= user.what_require %></td>
+		</tr>
+	</tbody>
+
+
+
+		<thead>
+		<tr>
+			<th colspan="5", style="width: 200px">自分の基となる経験値と、経験値から生まれた考え方</th>
+		</tr>
+	</thead>
+
+		<tbody>
+		<tr>
+			<td colspan="5", style="width: 200px"><%= user.basic_experience %></td>
+		</tr>
+	</tbody>
+
+	<thead>
+		<tr>
+			<th colspan="5", style="width: 200px">過去の失敗</th>
+		</tr>
+	</thead>
+
+		<tbody>
+		<tr>
+			<td colspan="5", style="width: 200px"><%= user.past_failures %></td>
+		</tr>
+	</tbody>
+
+
+
+	<thead>
+		<tr>
+			<th width = 200px, height = 50px>性格、好きな人のタイプ</th>
+			<th width = 200px, height = 50px>自分が提供できるもの（仕事以外のことで）</th>
+			<th style="width: 200px", style="height: 50px">心を動かされるきっかけに共通していること</th>
+			<th style="width: 200px", style="height: 50px">coming soon</th>
+			<th style="width: 200px", style="height: 50px">coming soon</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<tr>
+			<td><%= user.my_personality %></td>
+			<td><%= user.can_offer_personality %></td>
+			<td><%= user.interested_by_given %></td>
+			<td></td>
+			<td></td>
+		</tr>
+	</tbody>
+
+
+
+
 
 		</table>
 	</div>

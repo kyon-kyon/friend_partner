@@ -1,3 +1,73 @@
 // Place all the styles related to the Soliloquies controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.top2{
+  color: white;
+
+  font-size: 200px;
+
+}
+
+
+.top3{
+  background-color: rgba(255,255,255,0.4);
+  width: 500px;
+  border-left: solid 10px #000080;
+}
+
+.top4{
+  color: black;/*文字色*/
+  padding: 0.5em 0;/*上下の余白*/
+  border-top: solid 3px #364e96;/*上線*/
+  border-bottom: solid 3px #364e96;/*下線*/
+}
+
+.top-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.top5 {
+  padding-top: 100px;
+  display: flex;
+  padding-left: 1500px;
+  list-style: none;
+  margin-bottom: 10px;
+  li{
+  margin-left: 50px;
+
+  }
+}
+
+.top5 > div {
+
+  width: 33%;
+  height: 300px;
+  margin: 10px;
+  background-color: #fff;
+}
+
+
+@media screen and (max-width:1200px) {
+  .top-container {
+    justify-content: flex-start;
+  }
+  .top5 {
+    padding-right: 700px;
+    padding-left: 0;
+  }
+  .top3{
+    margin: 0;
+
+  }
+}
+
+
+
+.top-background {
+  background-image: image-url('photo-1605814968239-4d05d614659c.jpg');
+}
+

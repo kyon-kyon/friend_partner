@@ -1,3 +1,44 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.user-back{
+  background-color: red;
+  margin-left: 10px;
+}
+
+.user-edit{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 10;
+    overflow: hidden;
+
+  }
+
+  .application{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+
+.in-lineblock{
+  display: block;
+  float: left;
+}
+
+.background-show {
+  background-image: image-url('photo-1605819353779-20dd63e7a096.jpg');
+}
+
+.index-background {
+  background-image: image-url('photo-1605819353779-20dd63e7a096.jpg');
+}
+
+.center-th{
+  color: black;
+}
+
+.center-index{
+  color: black;
+}

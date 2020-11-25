@@ -7,6 +7,8 @@ class SoliloquiesController < ApplicationController
     end
 
 
+
+
     def index
         @users = User.all
         @soliloquies = Soliloquy.all
@@ -25,7 +27,6 @@ class SoliloquiesController < ApplicationController
         else
             render :new
         end
-
     end
 
     def show

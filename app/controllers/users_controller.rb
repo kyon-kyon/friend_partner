@@ -1,11 +1,50 @@
 class UsersController < ApplicationController
     before_action :authenticate_user!
 
+    def quit
+
+    end
+
+    def out
+        @user = current_user
+        @user.update(is_deleted: "Invaild")
+        reset_session
+        flash[:notice] = "退会完了しました"
+        redirect_to root_path
+    end
+
     def show
-        @current = User.find(params[:id])
+        # @current = User.find(params[:id])
         @user = User.find(params[:id])
-        @soliloquies = @user.soliloquies
-        @matchings = current_user.matchers.select { |n| n.id  == params[:id].to_i }
+        if @user.is_deleted == "Invaild"
+
+            flash[:notice] = "退会したユーザーです"
+            redirect_to root_path
+        else
+
+            @soliloquies = @user.soliloquies
+
+
+            @currentUserEntry=Entry.where(user_id: current_user.id)
+            @userEntry=Entry.where(user_id: @user.id)
+
+            if @user.id == current_user.id
+            else
+              @currentUserEntry.each do |cu|
+                @userEntry.each do |u|
+                  if cu.room_id == u.room_id then
+                    @isRoom = true
+                    @roomId = cu.room_id
+                  end
+                end
+              end
+              if @isRoom
+              else
+                @room = Room.new
+                @entry = Entry.new
+              end
+            end
+        end
     end
 
     def edit
@@ -46,6 +85,15 @@ class UsersController < ApplicationController
 
    def first
        @users = current_user.matchers
+   end
+
+   def new_guest
+      @user = User.find_or_create_by!(email: 'guest@example.com') do |user|
+      @user.password = SecureRandom.urlsafe_base64
+      # user.confirmed_at = Time.now  # Confirmable を使用している場合は必要
+   end
+      sign_in @user
+      redirect_to root_path, notice: 'ゲストユーザーとしてログインしました。'
    end
 
    private

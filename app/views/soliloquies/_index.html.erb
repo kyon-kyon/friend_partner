@@ -36,3 +36,34 @@
     <% end %>
   </tbody>
 </table>
+
+
+
+
+<div class="">
+    <table class="text-center table center-index">
+      <thead>
+        <tr>
+          <th class="text-center"></th>
+          <th class="text-center">つぶやきタイトル</th>
+          <th class="text-center">ユーザーページへ</th>
+          <th class="text-center">何を思ったか</th>
+          <th class="text-center">ユーザー名</th>
+        </tr>
+      </thead>
+
+
+        <% soliloquies.each do |soliloquy| %>
+          <tbody>
+            <tr>
+              <td><%= attachment_image_tag soliloquy.user, :profile_image, fallback: "no_image.jpg", size: "50x50" %></td>
+              <td><%= soliloquy.user.is_deleted %></td>
+              <td class="btn btn-default"><%= link_to "詳細", user_path(soliloquy.user) %></td>
+              <td><%= soliloquy.how_feel %></td>
+              <td><%= soliloquy.user.name %></td>
+            </tr>
+        <% end %>
+  　</table>
+</div>
+
+

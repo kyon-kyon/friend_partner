@@ -11,9 +11,8 @@ class ApplicationController < ActionController::Base
                    :kana_first_name,
                    :password,
                    :password_confirmation,
-
                    :introduction,
-                   :profile_image_id,
+                   :profile_image,
                    :for_what_application,
                    :message_level,
                    :ignore_character,
@@ -48,8 +47,6 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     user_path(resource)
   end
-
-
 
 
 end

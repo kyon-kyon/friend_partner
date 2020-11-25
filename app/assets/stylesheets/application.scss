@@ -14,5 +14,36 @@
  *= require_self
  */
 
+ * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+.table-noborder {
+  border-top: 0px !important;
+  border-bottom: 0px !important;
+}
+
+.log-in{
+  background-color: #f0f0f0;
+  border: 2px solid #000000;
+}
+
+li {
+  list-style: none;
+}
+
+body,
+#wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+footer {
+  margin-top: auto;
+}
