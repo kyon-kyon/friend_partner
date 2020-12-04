@@ -1,5 +1,4 @@
 class Users::SessionsController < Devise::SessionsController
-  before_action :authenticate_user!
 
   def new_guest
     user = User.guest
