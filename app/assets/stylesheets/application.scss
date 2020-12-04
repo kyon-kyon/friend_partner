@@ -14,11 +14,11 @@
  *= require_self
  */
 
- * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+// * {
+//   margin: 0;
+//   padding: 0;
+//   box-sizing: border-box;
+// }
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
@@ -46,4 +46,24 @@ body,
 
 footer {
   margin-top: auto;
+}
+
+.body{
+   background-image: image-url('photo-1518514854541-fe58ae2a5ef1.jpg');
+}
+
+.text-center{
+  text-align: center;
+}
+
+.text-title-white{
+  color: white;
+}
+
+.error{
+  color: white;
+}
+
+.follow-show{
+  margin: 0 auto;
 }

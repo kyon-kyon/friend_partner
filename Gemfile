@@ -50,6 +50,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'pry-byebug'
+  gem 'rubocop-airbnb'
 end
 
 group :test do
@@ -58,6 +59,7 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
+  gem 'rspec-rails'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -68,7 +70,7 @@ gem "refile", require: "refile/rails", github: 'manfe/refile'
 gem "refile-mini_magick"
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'jquery-rails'
-gem 'will_paginate',           '3.1.6'
+gem 'will_paginate',           '3.1.7'
 gem 'bootstrap-will_paginate', '1.0.0'
 gem "haml-rails", "~> 2.0"
 
@@ -76,3 +78,6 @@ gem 'dotenv-rails'
 group :production do
   gem 'mysql2'
 end
+
+gem 'rails-i18n', '~> 5.1'
+gem 'devise-i18n-views'

@@ -1,25 +1,35 @@
-<% @entries.each do |e| %>
-  <% if e.user.id != current_user.id %>
-    <h4><%= e.user.email%>さん</h4>
+<!--<div class="chatroom">-->
+<div class="chatroom-background">
+  <% @entries.each do |e| %>
+    <% if e.user.id != current_user.id %>
+      <h4><%= e.user.name %>さんとのDM</h4>
+    <% end %>
   <% end %>
-<% end %>
 
-<hr>
-<% if @messages.present? %>
-  <% @messages.each do |m| %>
-    <strong><%= m.content %></strong>
-    <small>by <strong><a href="/users/<%= m.user_id %>"><%= m.user.email %>さん</a></strong></small>
-    <hr>
+  <hr>
+
+  <div class="chat-box">
+    <% if @messages.present? %>
+      <% @messages.each do |m| %>
+        <div class="chat-area">
+          <strong class="chat-hukidashi"><%= m.content %></strong>
+        </div>
+        <strong class="chat-name">
+          <%= link_to user_path(m.user.id) do %>
+          <%= attachment_image_tag(m.user, :profile_image, :fill, 50, 50, fallback: "no_image.jpg", size: '50x50') %>
+          <% end %>
+        </strong>
+      <% end %>
+    <% else %>
+      <h3 class="text-center">メッセージはまだありません</h3>
+    <% end %>
+  </div>
+
+  <%= form_for @message do |f| %>
+    <%= f.text_field :content, :placeholder => "メッセージを入力して下さい" , :size => 70, class: "chatroom-black" %>
+    <%= f.hidden_field :room_id, :value => @room.id %>
+    <%= f.submit ">>" , class: "chatroom-black btn btn-primary" %>
   <% end %>
-<% else %>
-  <h3 class="text-center">メッセージはまだありません</h3>
-<% end %>
 
-<%= form_for @message do |f| %>
-  <%= f.text_field :content, :placeholder => "メッセージを入力して下さい" , :size => 70 %>
-  <%= f.hidden_field :room_id, :value => @room.id %>
-  <br>
-  <%= f.submit "投稿する" %>
-<% end %>
-
-<%= link_to "ユーザー一覧に戻る", users_path %>
+  <%= link_to "ユーザー一覧に戻る", users_path, class: "btn btn-primary" %>
+</div>

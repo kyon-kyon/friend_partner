@@ -1,45 +1,102 @@
 <div class="container">
+
 	<div class="row">
+		<h2 class="text-center tubuyaki-title">つぶやき詳細</h2>
+	</div>
 
-		<h2>つぶやき詳細</h2>
+<br>
 
-			<table class="table table-hover">
+		<div class="row text-center tubuyaki-title">
+			<div class="col-lg-6">
+				<%= link_to "投稿ユーザーのページへ", user_path(@soliloquy.user_id) , class: "btn btn-primary" %>
+			</div>
+			<div class="col-lg-6">
+				<%= link_to "このつぶやきを削除する", soliloquy_path(@soliloquy), method: :delete, class: "btn btn-danger" %>
+			</div>
+		</div>
 
-					<tr>
-						<th class="table-noborder">タイトル</th>
-						<td class="table-noborder"><%= @soliloquy.title %></td>
-					</tr>
-					<tr>
-						<th class="table-noborder">何に対して</th>
-						<td class="table-noborder"><%= @soliloquy.object %></td>
-					</tr>
-					<tr>
-						<th class="table-noborder">何をして（何を見て）</th>
-						<td class="table-noborder"><%= @soliloquy.what_do %></td>
-					</tr>
-					<tr>
-						<th nowrap class="table-noborder">どう感じたか</th>
-						<td class="table-noborder"><%= @soliloquy.how_feel %></td>
-					</tr>
-	                <tr>
-						<th nowrap class="table-noborder">自分はそれに対し何をしなければいけないのか？また似た分野では何ができているか？</th>
-						<td class="table-noborder"><%= @soliloquy.must_and_can %></td>
-					</tr>
-					<tr>
-						<th nowrap class="table-noborder">自分ができていることに対して何を今までしてきたか</th>
-						<td class="table-noborder"><%= @soliloquy.did_action %></td>
-					</tr>
-					<tr>
-						<th nowrap class="table-noborder">このつぶやきは何が目的か？</th>
-						<td class="table-noborder"><%= @soliloquy.purpose_soliloquy %></td>
-					</tr>
 
-					<tr>
-						<th class="table-noborder"> </th>
-						<td align="right" class="table-noborder">
-							<%#= link_to "編集ページへ", edit_admin_product_path, class:"btn btn-info btn-md" %>
-						</td>
-					</tr>
+		<br>
+
+  <div class="row">
+			<div class="solshow-background">
+
+			<table class="table table-hover table-striped w-100">
+				<thead>
+				  <tr>
+				    <th class="text-center center-th", style="width: 3000px">タイトル</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <td class="text-center", style="width: 3000px"><%= @soliloquy.title %></td>
+				</tbody>
+			</table>
+
+			<table class="table table-hover table-striped w-100">
+				<thead>
+				  <tr>
+				    <th class="text-center center-th", style="width: 3000px">何に対して</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <td class="text-center", style="width: 3000px"><%= @soliloquy.object %></td>
+				</tbody>
+			</table>
+
+			<table class="table table-hover table-striped w-100">
+				<thead>
+				  <tr>
+				    <th class="text-center center-th", style="width: 3000px">何をして（何を見て）</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <td class="text-center", style="width: 3000px"><%= @soliloquy.what_do %></td>
+				</tbody>
+			</table>
+
+			<table class="table table-hover table-striped w-100">
+				<thead>
+				  <tr>
+				    <th class="text-center center-th", style="width: 3000px">どう感じたか</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <td class="text-center", style="width: 3000px"><%= @soliloquy.how_feel %></td>
+				</tbody>
+			</table>
+
+			<table class="table table-hover table-striped w-100">
+				<thead>
+				  <tr>
+				    <th class="text-center center-th", style="width: 3000px">自分はそれに対し何をしなければいけないのか？また似た分野では何ができているか？</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <td class="text-center", style="width: 3000px"><%= @soliloquy.must_and_can %></td>
+				</tbody>
+			</table>
+
+			<table class="table table-hover table-striped w-100">
+				<thead>
+				  <tr>
+				    <th class="text-center center-th", style="width: 3000px">自分ができることに対して何を今までしてきたか</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <td class="text-center", style="width: 3000px"><%= @soliloquy.did_action %></td>
+				</tbody>
+			</table>
+
+			<table class="table table-hover table-striped w-100">
+				<thead>
+				  <tr>
+				    <th class="text-center center-th", style="width: 3000px">このつぶやきは何が目的か</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <td class="text-center", style="width: 3000px"><%= @soliloquy.purpose_soliloquy %></td>
+				</tbody>
+			</table>
 
 					<tr>
 						<td>
@@ -51,20 +108,38 @@
 
 					<tr>
 						<td>
-							<div id="post_comment_<%= @post_comment.id %>">
+							<!--<div id="post_comment_<%#= @post_comment.id %>">-->
 								<%#= render "post_comments/post_comment", soliloquy: @soliloquy, post_comment: @post_comment %>
+								<div>
+
+
+								<%= form_with(model: @post_comment, url: soliloquy_post_comments_path(@soliloquy), remote: true) do |f| %>
+
+
+								  	<div class="row">
+								    	<div class="col-sm-12">
+								      		<%= f.text_area :comment, rows:'2', class: "form-control comment-create", placeholder: "コメントをここに" %>
+								    	</div>
+								  	</div>
+								  	<%= f.submit "送信する", class: "btn btn-lg btn-base-1 mt-20 pull-right" %>
+								  <% end %>
+
+
+
+
 								<%= render partial: 'post_comments/post_comment', locals: { soliloquy: @soliloquy, post_comment: @post_comment} %>
+
 							</div>
 						</td>
 					</tr>
 
-			</table>
+			</div>
 
 			<br>
 			<br>
 			<br>
 			<br>
 
-		</div>
+
 	</div>
 </div>

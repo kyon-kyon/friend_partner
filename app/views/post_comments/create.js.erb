@@ -1,1 +1,2 @@
-$('#post_comment_<%= @post_comment.id %>').html("<%= j(render 'post_comments/post_comment',soliloquy: @soliloquy, post_comment: @post_comment) %>");
+$('#comments').html("<%= j(render 'post_comments/post_comment',soliloquy: @soliloquy, post_comment: @post_comment) %>");
+$('#post_comment_comment').val('');

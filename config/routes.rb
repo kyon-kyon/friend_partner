@@ -3,21 +3,21 @@ Rails.application.routes.draw do
   get 'users/show'
   root "soliloquies#top"
   devise_for :users, controllers: {
-    registrations: 'users/registrations'
+    registrations: 'users/registrations',
   }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-
-# get 'users/quit'
+  # get 'users/quit'
   resources :users do
     collection do
-      get :quit
+      # get :quit
       patch :out
     end
 
     # patch 'out'
     member do
       get :following, :followers
+      get :quit
     end
   end
 
@@ -29,6 +29,7 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     post 'users/guest_sign_in', to: 'users/sessions#new_guest'
+    # get "users/:id/quit", to: "users#quit"
   end
 
   resources :messages, :only => [:create]
@@ -36,8 +37,6 @@ Rails.application.routes.draw do
   resources :rooms, :only => [:create, :show, :index]
 
   resources :relationships, only: [:create, :destroy]
-
-
 
   resources :soliloquies do
     resource :favorites, only: [:create, :destroy]

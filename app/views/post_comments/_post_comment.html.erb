@@ -2,36 +2,39 @@
   <div class="float-wrapper">
     <h4 class="comment-count"><%= soliloquy.post_comments.count %>件コメント</h2>
   </div>
+<%= render 'layouts/errors', resource: @post_comment %>
+									  	<% if flash[:notice] %>
+											<div class="flash">
+												<%= flash[:notice] %>
+											</div>
+										<% end %>
 
-  <%= form_with(model:[post_comment], url: soliloquy_post_comments_path(soliloquy), remote: true) do |f| %>
-  	<div class="row">
-    	<div class="col-sm-12">
-      		<%= f.text_area :comment, rows:'5', class: "form-control comment-create", placeholder: "コメントをここに" %>
-    	</div>
-  	</div>
-  	<%= f.submit "送信する", class: "btn btn-lg btn-base-1 mt-20 pull-right" %>
-  <% end %>
 
-　　<table id="js-table-comment", class="table">
+	<table id="js-table-comment", class="table">
 		<% soliloquy.post_comments.each do |post_comment| %>
-　　		<tr>
-			   	<td width="120">
-			    	<%= link_to attachment_image_tag(post_comment.user, :profile_image, size: "70×70", fallback: "no_image.jpg"), user_path(post_comment.user) %>
-			    </td>
-		    	<td width="150">
-			    	<%= post_comment.user.name %>
-			    			<p><%= post_comment.created_at.strftime('%Y/%m/%d') %></p>
-			    	<p><% if post_comment.user.id == current_user.id %>
-	      					<%= link_to soliloquy_post_comment_path(soliloquy, post_comment), method: :delete, class: "btn-sm btn-danger", remote: true do %>
-	      						<i>削除</i>
-	      					<% end %>
-	    				<% end %>
-	    			</p>
-    			</td>
-				<td>
-        			<%= post_comment.comment %>
-				</td>
-			</tr>
+			<% if post_comment.user.is_deleted == "Invaild" %>
+			<% else %>
+			<tr>
+				   	<td width="120">
+				    	<%= link_to user_path(post_comment.user) do %>
+				    		<%= attachment_image_tag(post_comment.user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg", size: "100x100") %>
+				    	<% end %>
+				    </td>
+			    	<td width="150">
+				    	<%= post_comment.user.name %>
+				    			<p><%= post_comment.created_at.strftime('%Y/%m/%d') %></p>
+				    	<p><% if post_comment.user.id == current_user.id %>
+		      					<%= link_to soliloquy_post_comment_path(soliloquy, post_comment), method: :delete, class: "btn-sm btn-danger", remote: true do %>
+		      						<i>削除</i>
+		      					<% end %>
+		    				<% end %>
+		    			</p>
+	    			</td>
+					<td>
+	        	<%= post_comment.comment %>
+					</td>
+				</tr>
+			<% end %>
 		<% end %>
 	<table>
 </div>

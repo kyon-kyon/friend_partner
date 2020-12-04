@@ -1,334 +1,350 @@
 <div class="background-show" height="1500px" width="1500px">
 
-<div class="container">
-  <div class="row">
-		<div class="">
-			<h3 class="text-center center-th">ユーザーページ</h3>
+	<div class="container">
+	  <div class="row">
+				<h3 class="text-center center-th">ユーザーページ</h3>
+				 <% if flash[:notice] %>
+				<div class="flash">
+				<%= flash[:notice] %>
+				</div>
+				<% end %>
 		</div>
-	</div>
 
-	<div class="row">
-		</br>
+		<div class="row">
 
-		<div class="col-lg-6 in-lineblock text-center">
-		  <div>
-    		<%= link_to "フォロー　一覧", following_user_path(@user), class: "btn btn-primary" %>
-    		<%= @user.following.count %>
-      </div>
-<br>
-      <div>
-      	<%= link_to "フォロワー一覧", followers_user_path(@user), class: "btn btn-primary" %>
-      	<%= @user.followers.count %>
-      </div>
-    </div>
+			<div class="col-lg-2 in-lineblock text-center">
+			  <div>
+	    		<%= link_to "フォロー一覧", following_user_path(@user), class: "btn btn-primary" %>
+	    		<%= @user.following.count %>
+	      </div>
+	    </div>
 
-		<div class="col-lg-6 in-lineblock text-center">
+			<div class="col-lg-2 in-lineblock text-center">
+	      <div>
+	      	<%= link_to "フォロワー一覧", followers_user_path(@user), class: "btn btn-primary" %>
+	      	<%= @user.followers.count %>
+	      </div>
+	    </div>
 
-		  <%= link_to "つぶやくページへ", new_soliloquy_path, class: "btn btn-primary" %>
+			<div class="col-lg-2 in-lineblock text-center">
+			  <%= link_to "つぶやく", new_soliloquy_path, class: "btn btn-primary" %>
+			</div>
 
-		<div>
-
-<br>
-
+			<div class="col-lg-2 in-lineblock text-center">
         <% if @user.id == current_user.id %>
 
         <% else %>
-          <% if @isRoom == true %>
-            <%= link_to "チャットへ", room_path(@roomId), user_id: @user.id, class: "btn btn-primary" %>
+          <% if @is_room == true %>
+            <%= link_to "DM画面へ", room_path(@room_id), user_id: @user.id, class: "btn btn-primary" %>
           <% else %>
             <%= form_for @room do |f| %>
               <%= fields_for @entry do |e| %>
                 <%= e.hidden_field :user_id, :value=> @user.id %>
               <% end %>
-              <%= f.submit "チャットを始める", class: "btn btn btn-primary" %>
+              <%= f.submit "DMを始める", class: "btn btn btn-primary" %>
             <% end %>
           <% end %>
         <% end %>
-      </div>
+	    </div>
 
-<br>
+			<div class="col-lg-2 in-lineblock text-center">
+	      <%= link_to "会員情報編集画面へ", edit_user_path(@user), class: "btn btn-primary" %>
+			</div>
 
-      <%= link_to "会員情報編集画面へ", edit_user_path(@user), class: "btn btn-primary" %>
+			<div class="col-lg-2 in-lineblock text-center">
+				<% unless user_signed_in? && current_user.id == @user.id %>
+	    		<div id="follow_form">
+	        	<% if current_user.following?(@user) %>
+	           	<%= form_with(model: current_user.active_relationships.find_by(followed_id: @user.id),html: { method: :delete }, local: true) do |f| %>
+	            	<%= f.submit "フォロー中！", class: "btn" %>
+	          	<% end %>
+	        	<% else %>
+	            <%= form_with(model: current_user.active_relationships.build, local: true) do |f| %>
+	            	<div><%= hidden_field_tag :followed_id, @user.id %></div>
+	            	<%= f.submit "フォローする", class: "btn btn-info" %>
+	            	<% end %>
+	        	<% end %>
+	    		</div>
+	    	<% else %>
+	    	<% end %>
+			</div>
+		</div>
+	<br>
+
+		<div class="row">
+
+			<table class="table table-hover table-striped w-100">
+				<thead>
+				  <tr>
+				    <th class="text-center center-th", style="width: 3000px">顔写真</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <td class="text-center", style="width: 3000px"><%= attachment_image_tag @user, :profile_image, :fill, 300, 300, fallback: "no_image.jpg", size: '300x300' %></td>
+				</tbody>
+			</table>
+
+			<table class="table table-hover table-striped w-100">
+				<thead>
+				  <tr>
+				    <th class="text-center center-th", style="width: 3000px">氏名</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <td class="text-center", style="width: 3000px"><%= @user.name %></td>
+				</tbody>
+			</table>
+
+			<table class="table table-hover table-striped w-100">
+				<thead>
+				  <tr>
+				    <th class="text-center center-th", style="width: 3000px">カナ</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <td class="text-center", style="width: 3000px"><%= @user.kana_name %></td>
+				</tbody>
+			</table>
+
+			<table class="table table-hover table-striped w-100">
+				<thead>
+				  <tr>
+				    <th class="text-center center-th", style="width: 3000px">自己紹介</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <td class="text-center", style="width: 3000px"><%= @user.introduction %></td>
+				</tbody>
+			</table>
+
+			<table class="table table-hover table-striped w-100">
+				<thead>
+				  <tr>
+				    <th class="text-center center-th", style="width: 3000px">アプリの利用目的、どんな人を求めているか</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <td class="text-center", style="width: 3000px"><%= @user.for_what_application %></td>
+				</tbody>
+			</table>
+
+			<table class="table table-hover table-striped w-100">
+				<thead>
+				  <tr>
+				    <th class="text-center center-th", style="width: 3000px">メッセージで返事を返す基準</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <td class="text-center", style="width: 3000px"><%= @user.message_level %></td>
+				</tbody>
+			</table>
+
+			<table class="table table-hover table-striped w-100">
+				<thead>
+				  <tr>
+				    <th class="text-center center-th", style="width: 3000px">時間を投資をしたい相手の特徴</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <td class="text-center", style="width: 3000px"><%= @user.ignore_character %></td>
+				</tbody>
+			</table>
+
+			<table class="table table-hover table-striped w-100">
+				<thead>
+				  <tr>
+				    <th class="text-center center-th", style="width: 3000px">現在の職業</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <td class="text-center", style="width: 3000px"><%= @user.occupation %></td>
+				</tbody>
+			</table>
+
+			<table class="table table-hover table-striped w-100">
+				<thead>
+				  <tr>
+				    <th class="text-center center-th", style="width: 3000px">働くことに関して考えていること</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <td class="text-center", style="width: 3000px"><%= @user.think_to_job %></td>
+				</tbody>
+			</table>
+
+			<table class="table table-hover table-striped w-100">
+				<thead>
+				  <tr>
+				    <th class="text-center center-th", style="width: 3000px">望む労働時間</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <td class="text-center", style="width: 3000px"><%= @user.want_job_time %></td>
+				</tbody>
+			</table>
+
+			<table class="table table-hover table-striped w-100">
+				<thead>
+				  <tr>
+				    <th class="text-center center-th", style="width: 3000px">仕事上で人材教育、投資について考えていること</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <td class="text-center", style="width: 3000px"><%= @user.think_job_relationship %></td>
+				</tbody>
+			</table>
+
+			<table class="table table-hover table-striped w-100">
+				<thead>
+				  <tr>
+				    <th class="text-center center-th", style="width: 3000px">自分が提供できるもの（仕事において）</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <td class="text-center", style="width: 3000px"><%= @user.can_offer_job %></td>
+				</tbody>
+			</table>
+
+			<table class="table table-hover table-striped w-100">
+				<thead>
+				  <tr>
+				    <th class="text-center center-th", style="width: 3000px">目標年収</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <td class="text-center", style="width: 3000px"><%= @user.target_income %></td>
+				</tbody>
+			</table>
+
+			<table class="table table-hover table-striped w-100">
+				<thead>
+				  <tr>
+				    <th class="text-center center-th", style="width: 3000px">学びたいこと</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <td class="text-center", style="width: 3000px"><%= @user.what_want_learn %></td>
+				</tbody>
+			</table>
+
+			<table class="table table-hover table-striped w-100">
+				<thead>
+				  <tr>
+				    <th class="text-center center-th", style="width: 3000px">仕事以外に好きなもの</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <td class="text-center", style="width: 3000px"><%= @user.like_other_job %></td>
+				</tbody>
+			</table>
+
+			<table class="table table-hover table-striped w-100">
+				<thead>
+				  <tr>
+				    <th class="text-center center-th", style="width: 3000px">恋愛に関して望んでいるもの</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <td class="text-center", style="width: 3000px"><%= @user.what_desire_love %></td>
+				</tbody>
+			</table>
+
+
+			<table class="table table-hover table-striped w-100">
+				<thead>
+				  <tr>
+				    <th class="text-center center-th", style="width: 3000px">私の人生の歩み</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <td class="text-center", style="width: 3000px"><%= @user.how_did_life %></td>
+				</tbody>
+			</table>
+
+			<table class="table table-hover table-striped w-100">
+				<thead>
+				  <tr>
+				    <th class="text-center center-th", style="width: 3000px">過去の失敗</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <td class="text-center", style="width: 3000px"><%= @user.past_failures %></td>
+				</tbody>
+			</table>
+
+			<table class="table table-hover table-striped w-100">
+				<thead>
+				  <tr>
+				    <th class="text-center center-th", style="width: 3000px">自分の基となる経験値と、経験値から生まれた考え方</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <td class="text-center", style="width: 3000px"><%= @user.basic_experience %></td>
+				</tbody>
+			</table>
+
+			<table class="table table-hover table-striped w-100">
+				<thead>
+				  <tr>
+				    <th class="text-center center-th", style="width: 3000px">望んだ生き方、求めているもの</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <td class="text-center", style="width: 3000px"><%= @user.what_require %></td>
+				</tbody>
+			</table>
+
+			<table class="table table-hover table-striped w-100">
+				<thead>
+				  <tr>
+				    <th class="text-center center-th", style="width: 3000px">性格、好きな人のタイプ</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <td class="text-center", style="width: 3000px"><%= @user.my_personality %></td>
+				</tbody>
+			</table>
+
+			<table class="table table-hover table-striped w-100">
+				<thead>
+				  <tr>
+				    <th class="text-center center-th", style="width: 3000px">自分が提供できるもの（仕事に関係しないことで）</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <td class="text-center", style="width: 3000px"><%= @user.can_offer_personality %></td>
+				</tbody>
+			</table>
+
+			<table class="table table-hover table-striped w-100">
+				<thead>
+				  <tr>
+				    <th class="text-center center-th", style="width: 3000px">求めている人間関係と精神状態の関係</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <td class="text-center", style="width: 3000px"><%= @user.request_relationship_spirit  %></td>
+				</tbody>
+			</table>
+
+
+			<table class="table table-hover table-striped w-100">
+				<thead>
+				  <tr>
+				    <th class="text-center center-th", style="width: 3000px">心を動かされること</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <td class="text-center", style="width: 3000px"><%= @user.interested_by_given %></td>
+				</tbody>
+			</table>
 
 		</div>
+
 	</div>
 
 
-<div>
-	<% unless user_signed_in? && current_user.id == @user.id %>
-    		<div id="follow_form">
-        		<% if current_user.following?(@user) %>
-            		<%= form_with(model: current_user.active_relationships.find_by(followed_id: @user.id),html: { method: :delete }, local: true) do |f| %>
-                	<%= f.submit "フォロー中！", class: "btn" %>
-            		<% end %>
-        		<% else %>
-            		<%= form_with(model: current_user.active_relationships.build, local: true) do |f| %>
-                	<div><%= hidden_field_tag :followed_id, @user.id %></div>
-                	<%= f.submit "フォローする", class: "btn btn-info" %>
-            		<% end %>
-        		<% end %>
-    		</div>
-    		<% else %>
-    		<% end %>
-</div>
-
-<br>
-
-	<div class="row">
-		<table class="table table-hover table-bordered table-striped w-100">
-
-
-
-	<thead>
-	  <tr>
-	    <th class="text-center center-th", style="width: 3000px">顔写真</th>
-	  </tr>
-	</thead>
-	<tbody>
-	  <td class="text-center", style="width: 3000px"><%= attachment_image_tag @user, :profile_image, :fill, 50, 50, fallback: "no_image.jpg" %></td>
-	</tbody>
-
-
-		<thead>
-	  <tr>
-	    <th class="text-center center-th", style="width: 3000px">氏名</th>
-	  </tr>
-	</thead>
-	<tbody>
-	  <td class="text-center", style="width: 3000px"><%= @user.name %></td>
-	</tbody>
-
-		<thead>
-	  <tr>
-	    <th class="text-center center-th", style="width: 3000px">カナ</th>
-	  </tr>
-	</thead>
-	<tbody>
-	  <td class="text-center", style="width: 3000px"><%= @user.kana_name %></td>
-	</tbody>
-
-
-		<thead>
-	  <tr>
-	    <th class="text-center center-th", style="width: 3000px">自己紹介</th>
-	  </tr>
-	</thead>
-	<tbody>
-	  <td class="text-center", style="width: 3000px"><%= @user.introduction %></td>
-	</tbody>
-
-
-		<thead>
-	  <tr>
-	    <th class="text-center center-th", style="width: 3000px">アプリの利用目的、どんな人を求めているか</th>
-	  </tr>
-	</thead>
-	<tbody>
-	  <td class="text-center", style="width: 3000px"><%= @user.for_what_application %></td>
-	</tbody>
-
-
-		<thead>
-	  <tr>
-	    <th class="text-center center-th", style="width: 3000px">メッセージで返事を返す基準</th>
-	  </tr>
-	</thead>
-	<tbody>
-	  <td class="text-center", style="width: 3000px"><%= @user.message_level %></td>
-	</tbody>
-
-
-		<thead>
-	  <tr>
-	    <th class="text-center center-th", style="width: 3000px">時間の投資をしたい相手</th>
-	  </tr>
-	</thead>
-	<tbody>
-	  <td class="text-center", style="width: 3000px"><%= @user.ignore_character %></td>
-	</tbody>
-
-
-		<thead>
-	  <tr>
-	    <th class="text-center center-th", style="width: 3000px">現在の職業</th>
-	  </tr>
-	</thead>
-	<tbody>
-	  <td class="text-center", style="width: 3000px"><%= @user.occupation %></td>
-	</tbody>
-
-
-	<thead>
-	  <tr>
-	    <th class="text-center center-th", style="width: 3000px">働くことに関して考えていること</th>
-	  </tr>
-	</thead>
-	<tbody>
-	  <td class="text-center", style="width: 3000px"><%= @user.think_to_job %></td>
-	</tbody>
-
-
-	<thead>
-	  <tr>
-	    <th class="text-center center-th", style="width: 3000px">望む労働時間</th>
-	  </tr>
-	</thead>
-	<tbody>
-	  <td class="text-center", style="width: 3000px"><%= @user.want_job_time %></td>
-	</tbody>
-
-
-	<thead>
-	  <tr>
-	    <th class="text-center center-th", style="width: 3000px">仕事上で人材教育、投資について考えていること</th>
-	  </tr>
-	</thead>
-	<tbody>
-	  <td class="text-center", style="width: 3000px"><%= @user.think_job_relationship %></td>
-	</tbody>
-
-
-	<thead>
-	  <tr>
-	    <th class="text-center center-th", style="width: 3000px">自分が提供できるもの（仕事において）</th>
-	  </tr>
-	</thead>
-	<tbody>
-	  <td class="text-center", style="width: 3000px"><%= @user.can_offer_job %></td>
-	</tbody>
-
-
-	<thead>
-	  <tr>
-	    <th class="text-center center-th", style="width: 3000px">目標年収</th>
-	  </tr>
-	</thead>
-	<tbody>
-	  <td class="text-center", style="width: 3000px"><%= @user.target_income %></td>
-	</tbody>
-
-
-	<thead>
-	  <tr>
-	    <th class="text-center center-th", style="width: 3000px">学びたいこと</th>
-	  </tr>
-	</thead>
-	<tbody>
-	  <td class="text-center", style="width: 3000px"><%= @user.what_want_learn %></td>
-	</tbody>
-
-
-		<thead>
-	  <tr>
-	    <th class="text-center center-th", style="width: 3000px">仕事以外に好きなもの</th>
-	  </tr>
-	</thead>
-	<tbody>
-	  <td class="text-center", style="width: 3000px"><%= @user.like_other_job %></td>
-	</tbody>
-
-
-	<thead>
-	  <tr>
-	    <th class="text-center center-th", style="width: 3000px">恋愛に関して望んでいるもの</th>
-	  </tr>
-	</thead>
-	<tbody>
-	  <td class="text-center", style="width: 3000px"><%= @user.what_desire_love %></td>
-	</tbody>
-
-
-	<thead>
-	  <tr>
-	    <th class="text-center center-th", style="width: 3000px">私の人生の歩み</th>
-	  </tr>
-	</thead>
-	<tbody>
-	  <td class="text-center", style="width: 3000px"><%= @user.how_did_life %></td>
-	</tbody>
-
-
-	<thead>
-	  <tr>
-	    <th class="text-center center-th", style="width: 3000px">過去の失敗</th>
-	  </tr>
-	</thead>
-	<tbody>
-	  <td class="text-center", style="width: 3000px"><%= @user.past_failures %></td>
-	</tbody>
-
-
-		<thead>
-	  <tr>
-	    <th class="text-center center-th", style="width: 3000px">自分の基となる経験値と、経験値から生まれた考え方</th>
-	  </tr>
-	</thead>
-	<tbody>
-	  <td class="text-center", style="width: 3000px"><%= @user.basic_experience %></td>
-	</tbody>
-
-
-			<thead>
-	  <tr>
-	    <th class="text-center center-th", style="width: 3000px">望んだ生き方、求めているもの</th>
-	  </tr>
-	</thead>
-	<tbody>
-	  <td class="text-center", style="width: 3000px"><%= @user.what_require %></td>
-	</tbody>
-
-
-	<thead>
-	  <tr>
-	    <th class="text-center center-th", style="width: 3000px">性格、好きな人のタイプ</th>
-	  </tr>
-	</thead>
-	<tbody>
-	  <td class="text-center", style="width: 3000px"><%= @user.my_personality %></td>
-	</tbody>
-
-
-	<thead>
-	  <tr>
-	    <th class="text-center center-th", style="width: 3000px">自分が提供できるもの（仕事に関係しないことで）</th>
-	  </tr>
-	</thead>
-	<tbody>
-	  <td class="text-center", style="width: 3000px"><%= @user.basic_experience %></td>
-	</tbody>
-
-
-				<thead>
-	  <tr>
-	    <th class="text-center center-th", style="width: 3000px">求めている人間関係と精神状態の関係</th>
-	  </tr>
-	</thead>
-	<tbody>
-	  <td class="text-center", style="width: 3000px"><%= @user.request_relationship_spirit  %></td>
-	</tbody>
-
-
-	<thead>
-	  <tr>
-	    <th class="text-center center-th", style="width: 3000px">心を動かされること</th>
-	  </tr>
-	</thead>
-	<tbody>
-	  <td class="text-center", style="width: 3000px"><%= @user.interested_by_given %></td>
-	</tbody>
-
-
-
-
-
-
-		</table>
-	</div>
-
-</div>
-
-
-<%= render "soliloquies/index", soliloquies: @soliloquies %>
+	<%= render "soliloquies/index", soliloquies: @soliloquies %>
 
 
 </div>

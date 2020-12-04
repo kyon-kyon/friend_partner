@@ -1,3 +1,51 @@
 // Place all the styles related to the rooms controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.chatroom{
+ color: white;
+}
+
+.chatroom-black{
+  color: black;
+}
+
+.message_each{
+
+}
+
+
+
+
+.chat-box {
+    width: 100%;
+    height: auto;
+    overflow: hidden; /*floatの解除*/
+    margin-bottom: 20px;
+}
+.chat-name {
+    float: left;
+    margin-right: -120px;
+}
+.chat-face img{
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 4px #ddd;
+}
+.chat-area {
+    width: 100%;
+    float: right;
+}
+.chat-hukidashi {
+    display: inline-block;
+    padding: 15px 20px;
+    margin-left: 120px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    background-color: white;
+}
+
+
+.chatroom-background{
+  background-image: image-url('photo-1583616131344-ec323dd8811c.jpg');
+}

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container background-show">
   <div class="row text-center">
     <div class="">
       <h4 class="text-center">会員情報編集</h4>
@@ -6,212 +6,382 @@
   </div>
 	<br>
 	<br>
+
 	<div class="row">
 
 		<div align="right">
-			<%= link_to "退会する", quit_users_path, class: "btn btn-danger" %>
+			<%= link_to "退会画面へ", quit_user_path(@user), class: "btn btn-danger", method: :get %>
 		</div>
-    <%#= render "customers/shared/error_messages", resource: resource %>
+
+	<br>
+
+    <%= form_with model: @user, local: true do |f| %>
+
+			<%= render 'layouts/errors', resource: @user %>
+
+			<% if flash[:notice] %>
+			<div class="flash">
+				<%= flash[:notice] %>
+			</div>
+			<% end %>
+
 			<div class="">
-        <%= form_with model: @user, local: true do |f| %>
 
-					<table class="table user-edit">
+				<table class="">
+					<thead>
+						<tr>
+							<th class="text-center center-th", style="width: 3000px">姓(名前)</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="text-center", style="width: 3000px"><%= f.text_field :last_name, autofocus: true, autocomplete: "last_name" %></td>
+						</tr>
+					</tbody>
+				</table>
 
+				<table class="">
+					<thead>
+						<tr>
+							<th class="text-center center-th", style="width: 3000px">名(名前)</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="text-center", style="width: 3000px"><%= f.text_field :first_name, autofocus: true, autocomplete: "first_name" %></td>
+						</tr>
+					</tbody>
+				</table>
 
+				<table class="">
+					<thead>
+						<tr>
+							<th class="text-center center-th", style="width: 3000px">セイ(フリガナ)</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="text-center", style="width: 3000px"><%= f.text_field :kana_last_name, autofocus: true, autocomplete: "kana_first_name" %></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<table class="">
+					<thead>
+						<tr>
+							<th class="text-center center-th", style="width: 3000px">メイ(フリガナ)</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="text-center", style="width: 3000px"><%= f.text_field :kana_first_name, autofocus: true, autocomplete: "kana_first_name" %></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<table class="">
+					<thead>
+						<tr>
+							<th class="text-center center-th", style="width: 3000px">メールアドレス</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="text-center", style="width: 3000px"><%= f.email_field :email, autocomplete: "email", :size=>"30" %></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<table class="">
+					<thead>
+						<tr>
+							<th class="text-center center-th", style="width: 3000px">顔写真</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="text-center", style="width: 3000px">
+								<div align="center">
+									<%= f.attachment_field :profile_image, autofocus: true, autocomplete: "profile_image", class:"center" %>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<table class="">
+					<thead>
 							<tr>
-								<td class="">
-									<div align="center">姓(名前)</div>
-									<div align="center"><%= f.text_field :last_name, autofocus: true, autocomplete: "last_name", class:"center" %></div>
-								</td>
+								<th class="text-center center-th", style="width: 3000px">自己紹介</th>
 							</tr>
+						</thead>
+						<tbody>
 							<tr>
-								<td class="">
-									<div align="center">セイ（フリガナ）</div>
-									<div align="center"><%= f.text_field :kana_last_name, autofocus: true, autocomplete: "kana_last_name", class:"center" %></div>
-								</td>
+								<td class="text-center", style="width: 3000px"><%= f.text_area :introduction, autofocus: true, autocomplete: "introduction", :size=>"150", :style=>"height: 200px" %></td>
 							</tr>
+					</tbody>
+				</table>
 
+				<table class="">
+					<thead>
 							<tr>
-								<td class="">
-									<div align="center">名(名前)</div>
-									<div align="center"><%= f.text_field :first_name, autofocus: true, autocomplete: "first_name", class:"center" %></div>
-								</td>
+								<th class="text-center center-th", style="width: 3000px">アプリの利用目的、どんな人を求めているか</th>
 							</tr>
-
+						</thead>
+						<tbody>
 							<tr>
-								<td class="">
-									<div align="center">メイ(フリガナ)</div>
-									<div align="center"><%= f.text_field :kana_first_name, autofocus: true, autocomplete: "kana_first_name", class:"center" %></div>
-								</td>
+								<td class="text-center", style="width: 3000px"><%= f.text_area :for_what_application, autofocus: true, autocomplete: "for_what_application", :size=>"150" %></td>
 							</tr>
+					</tbody>
+				</table>
+
+				<table class="">
+					<thead>
 							<tr>
-								<td class="">
-									<div align="center">メールアドレス</div>
-									<div align="center"><%= f.email_field :email, autocomplete: "email", class:"center", :size=>"30" %></div>
-								</td>
+								<th class="text-center center-th", style="width: 3000px">メッセージで返事を返す基準</th>
 							</tr>
-
-
+						</thead>
+						<tbody>
 							<tr>
-								<td class="">
-									<div align="center">顔写真</div>
-									<div align="center"><%= f.attachment_field :profile_image, autofocus: true, autocomplete: "profile_image", class:"center" %></div>
-								</td>
+								<td class="text-center", style="width: 3000px"><%= f.text_area :message_level, autofocus: true, autocomplete: "message_level", :size=>"150" %></td>
 							</tr>
+					</tbody>
+				</table>
 
-
+				<table class="">
+					<thead>
 							<tr>
-								<td class="">
-									<div align="center user-edit">自己紹介</div>
-									<div align="center user-edit"><%= f.text_area :introduction, autofocus: true, autocomplete: "introduction", :size=>"150", class:"center", :style=>"height: 200px" %></div>
-								</td>
+								<th class="text-center center-th", style="width: 3000px">時間を投資したい相手の特徴</th>
 							</tr>
-
+						</thead>
+						<tbody>
 							<tr>
-									<td class="">
-										<div align="center">なんのためにこのアプリを使っているか、どんな人を求めているか</div>
-										<div align="center"><%= f.text_area :for_what_application, autofocus: true, autocomplete: "for_what_application", :size=>"150", class:"center" %></div>
-									</td>
+								<td class="text-center", style="width: 3000px"><%= f.text_area :ignore_character, autofocus: true, autocomplete: "ignore_character", :size=>"150" %></td>
 							</tr>
+					</tbody>
+				</table>
 
-
+				<table class="">
+					<thead>
 							<tr>
-								<td class="">
-									<div align="center">会話やメッセージを交わしても良いと思える最低レベルについて</div>
-									<div align="center"><%= f.text_area :message_level, autofocus: true, autocomplete: "message_level", :size=>"150", class:"center" %></div>
-								</td>
+								<th class="text-center center-th", style="width: 3000px">現在の職業</th>
 							</tr>
-
-
+						</thead>
+						<tbody>
 							<tr>
-									<td class="">
-										<div align="center">相手にしたくない人の特徴</div>
-										<div align="center"><%= f.text_area :ignore_character, autofocus: true, autocomplete: "ignore_character", :size=>"150", class:"center" %></div>
-									</td>
+								<td class="text-center", style="width: 3000px"><%= f.text_field :occupation, autofocus: true, autocomplete: "occupation", :size=>"50" %></td>
 							</tr>
+					</tbody>
+				</table>
 
+				<table class="">
+					<thead>
 							<tr>
-									<td class="">
-										<div align="center">現在の職業</div>
-										<div align="center"><%= f.text_field :occupation, autofocus: true, autocomplete: "occupation", :size=>"50", class:"center" %></div>
-									</td>
+								<th class="text-center center-th", style="width: 3000px">働くことに関して考えていること</th>
 							</tr>
-
+						</thead>
+						<tbody>
 							<tr>
-									<td class="">
-										<div align="center">働くことに関して考えていること</div>
-										<div align="center"><%= f.text_area :think_to_job, autofocus: true, autocomplete: "think_to_job", :size=>"150", class:"center" %></div>
-									</td>
+								<td class="text-center", style="width: 3000px"><%= f.text_area :think_to_job, autofocus: true, autocomplete: "think_to_job", :size=>"150" %></td>
 							</tr>
+					</tbody>
+				</table>
 
+				<table class="">
+					<thead>
 							<tr>
-									<td class="">
-										<div align="center">可能であるなら労働は何時間行いたいか？またその理由は？</div>
-										<div align="center"><%= f.text_area :want_job_time, autofocus: true, autocomplete: "want_job_time", :size=>"150", class:"center" %></div>
-									</td>
+								<th class="text-center center-th", style="width: 3000px">可能であるなら労働は何時間行いたいか？またその理由は？</th>
 							</tr>
-
+						</thead>
+						<tbody>
 							<tr>
-									<td class="">
-										<div align="center">仕事において、人についての教育や投資についてどう考えていること</div>
-										<div align="center"><%= f.text_area :think_job_relationship, autofocus: true, autocomplete: "think_job_relationship", :size=>"150", class:"center" %></div>
-									</td>
+								<td class="text-center", style="width: 3000px"><%= f.text_area :want_job_time, autofocus: true, autocomplete: "want_job_time", :size=>"150" %></td>
 							</tr>
+					</tbody>
+				</table>
 
+				<table class="">
+					<thead>
 							<tr>
-									<td class="">
-										<div align="center">自分が提供できるもの（仕事において）</div>
-										<div align="center"><%= f.text_area :can_offer_job, autofocus: true, autocomplete: "can_offer_job", :size=>"150", class:"center" %></div>
-									</td>
+								<th class="text-center center-th", style="width: 3000px">仕事上で人材教育、投資について考えていること</th>
 							</tr>
-
+						</thead>
+						<tbody>
 							<tr>
-									<td class="">
-										<div align="center">目標年収</div>
-										<div align="center"><%= f.text_field :target_income, autofocus: true, autocomplete: "target_income", :size=>"30", class:"center" %></div>
-									</td>
+								<td class="text-center", style="width: 3000px"><%= f.text_area :think_job_relationship, autofocus: true, autocomplete: "think_job_relationship", :size=>"150" %></td>
 							</tr>
+					</tbody>
+				</table>
 
+				<table class="">
+					<thead>
 							<tr>
-									<td class="">
-										<div align="center">学びたいこと</div>
-										<div align="center"><%= f.text_area :what_want_learn, autofocus: true, autocomplete: "what_want_learn", :size=>"150", class:"center" %></div>
-									</td>
+								<th class="text-center center-th", style="width: 3000px">自分が提供できるもの（仕事において）</th>
 							</tr>
-
+						</thead>
+						<tbody>
 							<tr>
-									<td class="">
-										<div align="center">仕事以外に好きなもの</div>
-										<div align="center"><%= f.text_area :like_other_job, autofocus: true, autocomplete: "like_other_job", :size=>"150", class:"center" %></div>
-									</td>
+								<td class="text-center", style="width: 3000px"><%= f.text_area :can_offer_job, autofocus: true, autocomplete: "can_offer_job", :size=>"150" %></td>
 							</tr>
+					</tbody>
+				</table>
 
+				<table class="">
+					<thead>
 							<tr>
-									<td class="">
-										<div align="center">恋愛に関して何を望んでいるもの</div>
-										<div align="center"><%= f.text_area :what_desire_love, autofocus: true, autocomplete: "what_desire_love", :size=>"150", class:"center", :style=>"height: 200px" %></div>
-									</td>
+								<th class="text-center center-th", style="width: 3000px">目標年収</th>
 							</tr>
-
+						</thead>
+						<tbody>
 							<tr>
-									<td class="">
-										<div align="center">私の人生の歩み</div>
-										<div align="center"><%= f.text_area :how_did_life, autofocus: true, autocomplete: "how_did_life", :size=>"150", class:"center" %></div>
-									</td>
+								<td class="text-center", style="width: 3000px"><%= f.text_field :target_income, autofocus: true, autocomplete: "target_income", :size=>"30" %></td>
 							</tr>
+					</tbody>
+				</table>
 
+				<table class="">
+					<thead>
 							<tr>
-									<td class="">
-										<div align="center">過去の失敗</div>
-										<div align="center"><%= f.text_area :past_failures, autofocus: true, autocomplete: "past_failures", :size=>"150", class:"center" %></div>
-									</td>
+								<th class="text-center center-th", style="width: 3000px">学びたいこと</th>
 							</tr>
-
+						</thead>
+						<tbody>
 							<tr>
-									<td class="">
-										<div align="center">自分の基となる経験値と、経験値から生まれた考え方</div>
-										<div align="center"><%= f.text_area :basic_experience, autofocus: true, autocomplete: "basic_experience", :size=>"150", class:"center" %></div>
-									</td>
+								<td class="text-center", style="width: 3000px"><%= f.text_area :what_want_learn, autofocus: true, autocomplete: "what_want_learn", :size=>"150" %></td>
 							</tr>
+					</tbody>
+				</table>
 
+				<table class="">
+					<thead>
 							<tr>
-									<td class="">
-										<div align="center">望んだ生き方、求めているもの</div>
-										<div align="center"><%= f.text_area :what_require, autofocus: true, autocomplete: "what_require", :size=>"150", class:"center" %></div>
-									</td>
+								<th class="text-center center-th", style="width: 3000px">仕事以外に好きなもの</th>
 							</tr>
-
+						</thead>
+						<tbody>
 							<tr>
-									<td class="">
-										<div align="center">性格、好きな人のタイプ</div>
-										<div align="center"><%= f.text_area :my_personality, autofocus: true, autocomplete: "my_personality", :size=>"150", class:"center" %></div>
-									</td>
+								<td class="text-center", style="width: 3000px"><%= f.text_area :like_other_job, autofocus: true, autocomplete: "like_other_job", :size=>"150" %></td>
 							</tr>
+					</tbody>
+				</table>
 
+				<table class="">
+					<thead>
 							<tr>
-									<td class="">
-										<div align="center">自分が提供できるもの（仕事に関係しないことで）</div>
-										<div align="center"><%= f.text_area :basic_experience, autofocus: true, autocomplete: "basic_experience", :size=>"150", class:"center" %></div>
-									</td>
+								<th class="text-center center-th", style="width: 3000px">恋愛に関して望んでいるもの</th>
 							</tr>
-
+						</thead>
+						<tbody>
 							<tr>
-									<td class="">
-										<div align="center">心を動かされること</div>
-										<div align="center"><%= f.text_area :interested_by_given, autofocus: true, autocomplete: "interested_by_given", :size=>"150", class:"center" %></div>
-									</td>
+								<td class="text-center", style="width: 3000px"><%= f.text_area :what_desire_love, autofocus: true, autocomplete: "what_desire_love", :size=>"150", :style=>"height: 200px" %></td>
 							</tr>
+					</tbody>
+				</table>
 
-
+				<table class="">
+					<thead>
 							<tr>
-									<td class="">
-										<div align="center"><%= f.submit "編集内容保存", class:"btn btn-success sign_up center" %></div>
-									</td>
+								<th class="text-center center-th", style="width: 3000px">私の人生の歩み</th>
 							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="text-center", style="width: 3000px"><%= f.text_area :how_did_life, autofocus: true, autocomplete: "how_did_life", :size=>"150" %></td>
+							</tr>
+					</tbody>
+				</table>
 
+				<table class="">
+					<thead>
+							<tr>
+								<th class="text-center center-th", style="width: 3000px">過去の失敗</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="text-center", style="width: 3000px"><%= f.text_area :past_failures, autofocus: true, autocomplete: "past_failures", :size=>"150" %></td>
+							</tr>
+					</tbody>
+				</table>
 
-					</table>
-  			<% end %>
-  </div>
+				<table class="">
+					<thead>
+							<tr>
+								<th class="text-center center-th", style="width: 3000px">自分の基となる経験値と、経験値から生まれた考え方</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="text-center", style="width: 3000px"><%= f.text_area :basic_experience, autofocus: true, autocomplete: "basic_experience", :size=>"150" %></td>
+							</tr>
+					</tbody>
+				</table>
+
+				<table class="">
+					<thead>
+							<tr>
+								<th class="text-center center-th", style="width: 3000px">望んだ生き方、求めているもの<</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="text-center", style="width: 3000px"><%= f.text_area :what_require, autofocus: true, autocomplete: "what_require", :size=>"150" %></td>
+							</tr>
+					</tbody>
+				</table>
+
+				<table class="">
+					<thead>
+							<tr>
+								<th class="text-center center-th", style="width: 3000px">性格、好きな人のタイプ<</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="text-center", style="width: 3000px"><%= f.text_area :my_personality, autofocus: true, autocomplete: "my_personality", :size=>"150" %></td>
+							</tr>
+					</tbody>
+				</table>
+
+				<table class="">
+					<thead>
+							<tr>
+								<th class="text-center center-th", style="width: 3000px">自分が提供できるもの（仕事に関係しないことで）</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="text-center", style="width: 3000px"><%= f.text_area :basic_experience, autofocus: true, autocomplete: "basic_experience", :size=>"150" %></td>
+							</tr>
+					</tbody>
+				</table>
+
+				<table class="">
+					<thead>
+							<tr>
+								<th class="text-center center-th", style="width: 3000px">心を動かされること</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="text-center", style="width: 3000px"><%= f.text_area :interested_by_given, autofocus: true, autocomplete: "interested_by_given", :size=>"150" %></td>
+							</tr>
+					</tbody>
+				</table>
+
+				<table class="">
+					<thead>
+							<tr>
+								<th class="text-center center-th", style="width: 3000px">全部埋めることができたら・・・</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="text-center", style="width: 3000px"><%= f.submit "編集内容保存", class:"btn btn-success sign_up" %></td>
+							</tr>
+					</tbody>
+				</table>
+			</div>
+		<% end %>
   </div>
 </div>

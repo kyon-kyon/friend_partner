@@ -10,17 +10,10 @@
 .user-edit{
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 10;
-    overflow: hidden;
-
-  }
-
-  .application{
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 4;
     overflow: hidden;
 }
+
 
 .in-lineblock{
   display: block;
@@ -39,6 +32,44 @@
   color: black;
 }
 
+
+
 .center-index{
   color: black;
 }
+
+
+
+table {
+  border: none;
+  border-collapse: separate;
+  border-radius: 50px;
+  border-spacing: 0;
+}
+
+table th, table td {
+  // border-bottom: 1px solid #ccc;
+  padding: 10px 20px;
+  border: none;
+}
+table th {
+  // border-right: 1px solid #ccc;
+  background: #EEE;
+
+
+}
+table tr:first-child th {
+  border-radius: 50px 50px 50px 50px;
+}
+table tr:last-child th {
+  border-radius: 50px 50px 50px 50px;
+}
+table tr:last-child td {
+  border-radius: 50px 50px 50px 50px;
+}
+
+
+
+
+
+
