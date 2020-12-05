@@ -54,6 +54,9 @@ Things you may want to cover:
 - JSライブラリ：jQuery
 - 仮想環境：cloud9
 
+### 機能一覧
+<https://docs.google.com/spreadsheets/d/1sWD6SBW335N0KMQwTjRLYOzgcvfYmS1pS8SgniBWKFQ/edit#gid=0>
+
 ## 使用素材
 
   アンスプラッシュ：https://unsplash.com/
