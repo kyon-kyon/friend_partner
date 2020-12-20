@@ -19,6 +19,14 @@ class SoliloquiesController < ApplicationController
 
   def create
     @soliloquy = Soliloquy.new(soliloquy_params)
+    @soliloquy.score = Language.get_data(soliloquy_params[:object])
+    @soliloquy.title_score = Language.get_data(soliloquy_params[:title])
+    @soliloquy.what_do_score = Language.get_data(soliloquy_params[:what_do])
+    @soliloquy.how_feel_score = Language.get_data(soliloquy_params[:how_feel])
+    @soliloquy.must_and_can_score = Language.get_data(soliloquy_params[:must_and_can])
+    @soliloquy.did_action_score = Language.get_data(soliloquy_params[:did_action])
+    @soliloquy.porpose_soliloquy_score = Language.get_data(soliloquy_params[:purpose_soliloquy])
+
     @soliloquy.user_id = current_user.id
     if @soliloquy.save
       redirect_to soliloquy_path(@soliloquy)

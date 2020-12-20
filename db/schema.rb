@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_20_172820) do
+ActiveRecord::Schema.define(version: 2020_12_10_022245) do
 
   create_table "entries", force: :cascade do |t|
     t.integer "user_id"
@@ -69,6 +69,13 @@ ActiveRecord::Schema.define(version: 2020_11_20_172820) do
     t.text "purpose_soliloquy"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "score", precision: 5, scale: 3
+    t.decimal "title_score", precision: 5, scale: 3
+    t.decimal "what_do_score", precision: 5, scale: 3
+    t.decimal "how_feel_score", precision: 5, scale: 3
+    t.decimal "must_and_can_score", precision: 5, scale: 3
+    t.decimal "did_action_score", precision: 5, scale: 3
+    t.decimal "porpose_soliloquy_score", precision: 5, scale: 3
   end
 
   create_table "users", force: :cascade do |t|
