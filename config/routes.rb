@@ -9,10 +9,8 @@ Rails.application.routes.draw do
 
   resources :users do
     collection do
-
       patch :out
     end
-
 
     member do
       get :following, :followers
